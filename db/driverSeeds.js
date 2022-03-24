@@ -4,14 +4,14 @@ module.exports = [
         lastName: 'Murray',
         phoneNumber: 8437011011,
         truckNumber: 787,
-        trailerNumber: null
+        trailerNumber: 0
     },
     {
         firstName: 'Austin',
         lastName: 'Keller',
         phoneNumber: 8437017701,
         truckNumber: 826,
-        trailerNumber: null
+        trailerNumber: 0
     },
     {
         firstName: 'Ernest',
@@ -39,6 +39,6 @@ module.exports = [
         lastName: 'Jacobson',
         phoneNumber: 7015256585,
         truckNumber: 846,
-        trailerNumber: null
+        trailerNumber: 0
     },
 ]

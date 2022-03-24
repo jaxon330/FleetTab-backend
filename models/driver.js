@@ -5,7 +5,7 @@ const driverSchema = new mongoose.Schema({
     lastName: String,
     phoneNumber: Number,
     truckNumber: Number,
-    trailerNumber: Number
+    trailerNumber: {type: Number, default: 0}
 })
 
 const Driver = mongoose.model('Driver', driverSchema)

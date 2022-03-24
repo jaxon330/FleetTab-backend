@@ -58,7 +58,7 @@ router.delete('/drivers/:id', (req, res) => {
         if(error) {
             res.status(400).send({error: error.message})
         } else {
-            res.send(`Driver ${deletedDriver.firstName} ${deletedDriver.lastName} was deleted from the system.`)
+            res.status(200).json(deletedDriver)
         }
     })
 })

@@ -4,6 +4,8 @@ const app = express()
 const driverController = require('./controller/driverController')
 const loadController = require('./controller/loadController')
 const carrierDataController = require('./controller/carrierDataController')
+const cors = require('cors')
+app.use(cors())
 
 require('./db/connections')
 app.use(bodyParser.json())
@@ -15,6 +17,6 @@ app.use('/', carrierDataController)
 //     res.send('Express working')
 // })
 
-app.listen(3000, (req, res) => {
-    console.log('Server is running on port 3000')
+app.listen(4000, (req, res) => {
+    console.log('Server is running on port 4000')
 })
