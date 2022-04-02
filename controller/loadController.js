@@ -4,7 +4,7 @@ const Load = require('../models/loadModel')
 
 // Index route 
 router.get('/loads', (req, res) => {
-    Load.find({}, (error, allLoads) => {
+    Load.find().populate('driverInfo').exec((error, allLoads) => {
         if(error) {
             res.status(400).json({error: error.message})
         } else {
@@ -14,20 +14,21 @@ router.get('/loads', (req, res) => {
 })
 
 // Create route
-router.post('/loads', (req, res) => {
-    Load.create(req.body, (error, newLoad) => {
-        if(error) {
-            res.status(400).json({error: error.message})
 
-        } else {
-            res.status(200).json(newLoad)
-        }
-    })
+router.post('/loads', async (req, res) => {
+    try {
+        const newData = await Load.create(req.body) 
+        const driverInfo = await newData.populate('driverInfo')  
+        res.status(200).json(driverInfo)
+    } catch (error) {
+        console.error(error)
+    }
+    
 })
 
 // Show Route
 router.get('/loads/:id', (req, res) => {
-    Load.findById(req.params.id, (error, showLoad) => {
+    Load.findById(req.params.id).populate('driverInfo').exec((error, showLoad) => {
         if(error) {
             res.status(400).json({error: error.message})
         } else {
@@ -38,7 +39,7 @@ router.get('/loads/:id', (req, res) => {
 
 // Update route
 router.put('/loads/edit/:id', (req, res) => {
-    Load.findByIdAndUpdate(req.params.id, req.body, {new: true}, (error, updatedLoad) => {
+    Load.findByIdAndUpdate(req.params.id, req.body, {new: true}).populate('driverInfo').exec((error, updatedLoad) => {
         if(error) {
             res.status(400).json({error: error.message})
         } else {
@@ -49,11 +50,12 @@ router.put('/loads/edit/:id', (req, res) => {
 
 // Delete route
 router.delete('/loads/:id', (req, res) => {
-    Load.findByIdAndRemove(req.params.id, (error, deletedLoad) => {
+    Load.findByIdAndRemove(req.params.id).populate('driverInfo').exec((error, deletedLoad) => {
+        console.log(error);
         if(error) {
-            res.send(200).json({error: error.message})
+            res.status(400).json({error: error.message})
         } else {
-            res.send(`${deletedLoad.companyName} load number ${deletedLoad.loadNumber} was deleted from the system!`)
+            res.status(200).json(deletedLoad)
         }
     })
 })

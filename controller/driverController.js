@@ -20,6 +20,7 @@ router.get('/drivers', (req, res) => {
 // Create route
 
 router.post('/drivers', (req, res) => {
+    console.log(req.body);
     Driver.create(req.body, (error, createdDriver) => {
         if(error) {
             res.status(400).json({error: error.message});

@@ -1,11 +1,25 @@
 const mongoose = require('mongoose')
 
 const driverSchema = new mongoose.Schema({
-    firstName: {type: String, require: true},
-    lastName: String,
-    phoneNumber: Number,
+    driver1: {
+        firstName: String,
+        lastName: String,
+        phoneNumber: Number,
+        homeAddress: String,
+    },
+    driver2: {
+        driver2FirstName: String,
+        driver2LastName: String,
+        driver2PhoneNumber: Number,
+        driver2HomeAddress: String,
+    },
     truckNumber: Number,
-    trailerNumber: {type: Number, default: 0}
+    trailerNumber: {type: Number, default: 0},
+    currentLocation: String,
+    type: String,
+    status: String,
+    note: String
+
 })
 
 const Driver = mongoose.model('Driver', driverSchema)
