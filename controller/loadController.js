@@ -5,7 +5,7 @@ const Load = require('../models/loadModel')
 // Index route 
 router.get('/loads', (req, res) => {
     owner: req.session._id
-    Load.find().populate('driverInfo').exec((error, allLoads) => {
+    Load.find({owner: req.session._id}).populate('driverInfo').exec((error, allLoads) => {
         if(error) {
             res.status(400).json({error: error.message})
         } else {

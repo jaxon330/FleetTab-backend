@@ -30,7 +30,7 @@ app.use(express.urlencoded({extended: false}))
 app.use(session({
     secret: SESSION_SECRET,
     resave: false,
-    saveUninialized: false
+    saveUninitialized: false
 }))
  
 app.use((req, res, next) => {
