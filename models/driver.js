@@ -18,9 +18,13 @@ const driverSchema = new mongoose.Schema({
     currentLocation: String,
     type: String,
     status: String,
-    note: String
-
+    note: String,
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
+
 
 const Driver = mongoose.model('Driver', driverSchema)
 module.exports = Driver

@@ -26,7 +26,11 @@ const loadSchema = new mongoose.Schema({
     },
     stops: [
         {stop: String, date: Date}
-    ]
+    ],
+    owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 })
 
 const Load = mongoose.model('Load', loadSchema)

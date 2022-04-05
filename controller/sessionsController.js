@@ -25,7 +25,7 @@ router.post('/register', async (req, res, next) => {
                 req.body.password = hashedPassword
                 const createdUser = await User.create(req.body)
                 req.session.username = createdUser.username
-                // req.session._id = createdUser._id
+                req.session._id = createdUser._id
                 res.status(200).json(createdUser)
                 console.log('new user is registed '+ createdUser);
                 // res.redirect('/')
@@ -54,7 +54,9 @@ router.post('/login', async (req, res, next) => {
             const validPassword = bcrypt.compareSync(req.body.password, userToLogin.password)
             if(validPassword) {
                 req.session.username = userToLogin.username
+                
                 console.log(userToLogin.username + ' User Logged in')
+                res.status(200).json('ok')
             } else {
                 console.log('Invalid username or password')
             }
@@ -63,6 +65,7 @@ router.post('/login', async (req, res, next) => {
             console.log('Invalid username or password')
         }
     } catch (err) {
+        res.json(error)
         next(err)
     }
 })

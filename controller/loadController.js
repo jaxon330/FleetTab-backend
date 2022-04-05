@@ -4,6 +4,7 @@ const Load = require('../models/loadModel')
 
 // Index route 
 router.get('/loads', (req, res) => {
+    owner: req.session._id
     Load.find().populate('driverInfo').exec((error, allLoads) => {
         if(error) {
             res.status(400).json({error: error.message})
@@ -17,6 +18,7 @@ router.get('/loads', (req, res) => {
 
 router.post('/loads', async (req, res) => {
     try {
+        req.body.owner = req.session._id
         const newData = await Load.create(req.body) 
         const driverInfo = await newData.populate('driverInfo')  
         res.status(200).json(driverInfo)

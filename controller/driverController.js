@@ -5,7 +5,7 @@ const Driver = require('../models/driver')
 // Index Route
 
 router.get('/drivers', (req, res) => {
-    
+    owner: req.session._id
     Driver.find({}, (error, drivers) =>{
         if(error) {
             console.log(error);
@@ -20,7 +20,7 @@ router.get('/drivers', (req, res) => {
 // Create route
 
 router.post('/drivers', (req, res) => {
-    console.log(req.body);
+    req.body.owner = req.session._id
     Driver.create(req.body, (error, createdDriver) => {
         if(error) {
             res.status(400).json({error: error.message});

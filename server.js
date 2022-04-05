@@ -43,30 +43,30 @@ app.use((req, res, next) => {
 //     if (req.session.loggedIn) {
 //         next()
 //     } else {
-//         res.redirect('/session/login')
+//         console.log('redirected to login page');
 //     }
 // })
 // middleware to require authentication
-// const authRequired = (req, res, next) => {
-//     if (req.session.loggedIn) {
-//         next()
-//     } else {
-//         res.redirect('/session/login')
-//     }
-// }
+const authRequired = (req, res, next) => {
+    if (req.session.loggedIn) {
+        next()
+    } else {
+        res.status(200).json('ok')
+    }
+}
 
 // custom middleware for flash messaging
-// app.use((req, res, next) => {
-//     res.locals.message = req.session.message
-//     req.session.message = ""
-//     next()
-// })
+app.use((req, res, next) => {
+    res.locals.message = req.session.message
+    req.session.message = ""
+    next()
+})
 app.use('/', driverController)
-app.use('/', loadController)
+app.use('/',  loadController)
 // app.use('/', carrierDataController)
 app.use('/sessions', sessionsController)
 
 
-app.listen(PORT, (req, res) => {
+app.listen(process.env.PORT || 4000, (req, res) => {
     console.log('Server is running on port 4000')
 })
