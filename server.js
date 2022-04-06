@@ -50,8 +50,9 @@ app.use((req, res, next) => {
 const authRequired = (req, res, next) => {
     if (req.session.loggedIn) {
         next()
-    } else {
         res.status(200).json('ok')
+    } else {
+        console.log('redirect to login page');
     }
 }
 
